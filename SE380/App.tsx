@@ -1,12 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import GalleryView from './PhotoGallery/GalleryView';
+import PhotoDetails from './PhotoGallery/PhotoDetails'; // Import the PhotoDetails screen
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Stack = createStackNavigator();
+
+export type StackParamList = {
+  Gallery: undefined;
+  PhotoDetails: { id: number; url: string };
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Gallery" component={GalleryView} />
+        <Stack.Screen name="PhotoDetails" component={PhotoDetails} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
