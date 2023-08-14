@@ -12,7 +12,7 @@ import {
 // Expo icon set note from Prof Bowen: https://docs.expo.dev/guides/icons/
 import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import PhotoDetails from "./PhotoDetails"; // Import the PhotoDetails screen
+import PhotoDetails from "../PhotoGallery/PhotoDetails"; // Import the PhotoDetails screen
 
 // Define ImageData interface code from Canvas WK2: Photo Gallery Assignment
 interface ImageData {
