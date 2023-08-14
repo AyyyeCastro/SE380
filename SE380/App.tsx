@@ -5,8 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import GalleryView from './PhotoGallery/GalleryView';
 import PhotoDetails from './PhotoGallery/PhotoDetails'; // Import the PhotoDetails screen
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { HomeScreen } from "./HomeScreen";
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export type StackParamList = {
   Gallery: undefined;
@@ -16,10 +17,10 @@ export type StackParamList = {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Gallery" component={GalleryView} />
-        <Stack.Screen name="PhotoDetails" component={PhotoDetails} />
-      </Stack.Navigator>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Gallery" component={GalleryView} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
