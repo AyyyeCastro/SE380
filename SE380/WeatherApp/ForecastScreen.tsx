@@ -16,7 +16,7 @@ const ForecastScreen = () => {
         const forecast = await getForecast("02886", 7);
         setForecastData(forecast);
       } catch (error) {
-        // Handle error if needed
+        throw error;
       }
     };
 
