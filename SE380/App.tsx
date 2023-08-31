@@ -99,7 +99,7 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{ headerShown: false, drawerPosition: "right" }}
-          initialRouteName="Charging App"
+          initialRouteName="Gallery App"
         >
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="Charging App" component={ChargeView} />

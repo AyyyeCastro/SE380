@@ -14,6 +14,13 @@ import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import PhotoDetails from "../PhotoGallery/PhotoDetails"; // Import the PhotoDetails screen
 
+/* Week 7 */
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  useAnimatedScrollHandler,
+} from "react-native-reanimated";
+
 // Define ImageData interface code from Canvas WK2: Photo Gallery Assignment
 interface ImageData {
   id: number;
@@ -22,7 +29,7 @@ interface ImageData {
 
 // Loop provided from Canvas WK2: Photo Gallery HW Assignment
 const imageData: ImageData[] = [];
-for (let i = 503; i < 750; i++) {
+for (let i = 503; i < 600; i++) {
   imageData.push({ id: i, url: `https://picsum.photos/id/${i}/200` });
 }
 
@@ -30,6 +37,14 @@ const Stack = createStackNavigator();
 
 const GalleryView = () => {
   const navigation = useNavigation();
+
+  const rotateAnimation = useSharedValue(0);
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ rotate: `${rotateAnimation.value}deg` }],
+    };
+  });
+
 
   // default image should be empty.
   const [selectedImage, setSelectedImage] = useState<string>("");
@@ -56,9 +71,9 @@ const GalleryView = () => {
         onPress={() => handleOnPressGrid(item)}
         activeOpacity={0.7}
       >
-        <Image
+        <Animated.Image
           source={{ uri: item.url }}
-          style={styles.image}
+          style={[styles.image, animatedStyle]}
           resizeMode="cover"
         />
       </TouchableOpacity>
@@ -83,10 +98,13 @@ const GalleryView = () => {
       <FlatList
         data={filteredImage}
         keyExtractor={(item) => item.id.toString()}
-        numColumns={3} // Display images in a grid with 3 columns
+        numColumns={3}
         renderItem={renderGridItem}
+        // Handle scroll event here
+        onScroll={(event) => { // put the animation inside of the event (adjust value for rotation speed)
+          rotateAnimation.value = event.nativeEvent.contentOffset.y / 25;
+        }}
       />
-
 
       {/* When image tapped -> fullscreen it */}
       {selectedImage !== "" ? (
@@ -105,9 +123,7 @@ const GalleryView = () => {
           <TouchableOpacity
             style={styles.closeIconContainer}
             onPress={handleOnPressFullscreen}
-          >
-            <Image source={closeIcon} style={styles.closeIcon} />
-          </TouchableOpacity>
+          ></TouchableOpacity>
         </TouchableOpacity>
       ) : undefined}
     </View>
