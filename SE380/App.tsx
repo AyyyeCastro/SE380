@@ -25,7 +25,13 @@ import {
   faListUl,
   faQrcode,
 } from "@fortawesome/free-solid-svg-icons";
+
+
+/* New for Week6 */
+import ChargeView from "./ShakeChargeApp/ChargeScreen";
 /*****************************************************************/
+
+
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -93,9 +99,10 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{ headerShown: false, drawerPosition: "right" }}
-          initialRouteName="Barcode App"
+          initialRouteName="Gallery App"
         >
           <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Charging App" component={ChargeView} />
           <Drawer.Screen name="Weather App" component={WeatherDrawer} />
           <Drawer.Screen name="Barcode App" component={BarcodeTab} />
           <Drawer.Screen name="Gallery App" component={GalleryView} />
