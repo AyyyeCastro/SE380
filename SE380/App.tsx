@@ -20,12 +20,20 @@ import ProductDetailScreen from "./BarcodeScanner/ProductDetailScreen";
 import FavoritedItemsScreen from "./BarcodeScanner/FavoritedItemsScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
+  faBowlFood,
   faDesktop,
   faHeart,
   faListUl,
   faQrcode,
+  faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
-/*****************************************************************/
+
+/* New for Week6 */
+import ChargeView from "./ShakeChargeApp/ChargeScreen";
+import MealGalleryScreen from "./FinalProject/MealGalleryScreen";
+import MealDetails from "./FinalProject/MealDetails";
+import MealsFavorited from "./FinalProject/MealsFavorited";
+
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -87,15 +95,59 @@ const BarcodeTab = () => (
   </Tab.Navigator>
 );
 
+const MealTab = () => (
+  <Tab.Navigator
+    initialRouteName="Scan"
+    screenOptions={{
+      unmountOnBlur: true,
+      tabBarActiveTintColor: "#feb81b", // Set the active tab color
+      tabBarInactiveTintColor: "gray", // Set the inactive tab color
+      tabBarShowLabel: false,
+      tabBarStyle: {
+        backgroundColor: "#f0f0fc", // Set the background color of the tab bar
+        borderTopWidth: 0, // Remove the top border
+      },
+    }}
+  >
+    <Tab.Screen
+      name="Recipes" 
+      component={MealGalleryScreen}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <FontAwesomeIcon icon={faBowlFood} color={color} size={20} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Saved Recipes"
+      component={MealsFavorited}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <FontAwesomeIcon icon={faReceipt} color={color} size={20} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Recipe Info"
+      component={MealDetails}
+      options={{
+        tabBarButton: () => null,
+      }}
+    />
+  </Tab.Navigator>
+);
+
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{ headerShown: false, drawerPosition: "right" }}
-          initialRouteName="Barcode App"
+          initialRouteName="Meal App" // final project as default
         >
           <Drawer.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Meal App" component={MealTab} />
+          <Drawer.Screen name="Charging App" component={ChargeView} />
           <Drawer.Screen name="Weather App" component={WeatherDrawer} />
           <Drawer.Screen name="Barcode App" component={BarcodeTab} />
           <Drawer.Screen name="Gallery App" component={GalleryView} />
